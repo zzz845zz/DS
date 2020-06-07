@@ -47,7 +47,16 @@ def split_traintest_by_column(df, criteria='연월', threshold=202000):
     
     return train, test
 
-def split_xy(df, x_header=None, y_header=None, next_quarter=False):
+
+def __get_next_quarter(year, quarter):
+    quarter = (quarter+1) % 5
+    
+    if quarter==0:
+        year += 1
+        quarter = 1
+    return year, quarter
+
+def split_xy(df, x_header=None, y_header=None):
     # is_valid = df[y_header] != 0
     # df = df[is_valid]
     
