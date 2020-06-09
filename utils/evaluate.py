@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 from sklearn import metrics
 
 # datas   : np.array
@@ -60,7 +61,7 @@ def visualize_scatter(value_gt, value_predict, title='Regression'):
     plt.title('%s x=gt, y=predict' %(title))
     
     
-def eval_regression(value_gt, value_predict, scaler=None, model_name=None):
+def eval_regression(value_gt, value_predict, scaler=None, model_name=None, savepath=None):
     if scaler:
         value_gt = value_gt.reshape(value_gt.size, 1)
         value_predict = value_predict.reshape(value_predict.size, 1)
@@ -80,4 +81,8 @@ def eval_regression(value_gt, value_predict, scaler=None, model_name=None):
     
     plt.subplot(1, 2, 2)
     print('----------------------------')
-    return __get_error(value_gt, value_predict, title='%s error' %(model_name))
+    err = __get_error(value_gt, value_predict, title='%s error' %(model_name))
+    
+    if savepath:
+        plt.savefig(os.path.join(savepath, model_name+'.png'), dpi=100)
+    return err

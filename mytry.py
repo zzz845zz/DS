@@ -134,7 +134,7 @@ def get_traintest(filepath=None, pred_category=None, y_next_quarter=True, random
     return x_train, y_train, x_test, y_test, scaler
 
 # datasets : [x_test, y_test, x_test, y_test]
-def main(modelname=None, datasets=None, scaler=None, n_hidden=2, epoch=100):
+def main(modelname=None, datasets=None, dataset_name=None, scaler=None, n_hidden=2, epoch=100, lr=0.0001):
     x_train, y_train, x_test, y_test = datasets
     
     # Train
@@ -144,11 +144,11 @@ def main(modelname=None, datasets=None, scaler=None, n_hidden=2, epoch=100):
         model = my_MLP.build_model(
             input_shape = [x_train.shape[1]],
             n_hidden=2,
-            lr=0.00001
+            lr=lr
         )
         
         model, history = my_MLP.train(
-            model, modelname,
+            model, modelname, dataset_name,
             x_train, y_train, x_test, y_test,
             epoch=epoch, batchsize=32
         )
@@ -160,11 +160,11 @@ def main(modelname=None, datasets=None, scaler=None, n_hidden=2, epoch=100):
         model = my_MLP.build_model(
             input_shape = [x_train.shape[1]],
             n_hidden=3,
-            lr=0.00001
+            lr=lr
         )
         
         model, history = my_MLP.train(
-            model, modelname,
+            model, modelname, dataset_name,
             x_train, y_train, x_test, y_test,
             epoch=epoch, batchsize=32
         )

@@ -34,7 +34,7 @@ def build_model(input_shape, n_hidden=2, lr=0.00001):
                 metrics=['mae', 'mse'])
     return model
 
-def train(model, model_name, x_train, y_train, x_test, y_test, epoch, batchsize):
+def train(model, model_name, dataset_name, x_train, y_train, x_test, y_test, epoch, batchsize):
     class PrintDot(keras.callbacks.Callback):
         def on_epoch_end(self, epoch, logs):
             global epo
@@ -63,7 +63,7 @@ def train(model, model_name, x_train, y_train, x_test, y_test, epoch, batchsize)
         validation_data = (x_test, y_test),
         callbacks=[PrintDot(), ReduceLR, EarlyStop])
 
-    modelpath = os.path.join('./log', '%s-epoch:%04d-val_mse:%.4f.hdf5' %(model_name, epo, val_mse))
+    modelpath = os.path.join('./log', dataset_name, '%s-epoch:%04d-val_mse:%.4f.hdf5' %(model_name, epo, val_mse))
     model.save(modelpath)
     print(modelpath, 'saved')
     return model, history
