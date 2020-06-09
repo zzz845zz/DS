@@ -51,8 +51,8 @@ def train(model, model_name, dataset_name, x_train, y_train, x_test, y_test, epo
 
     # metric의 상승이 멈출때마다 learning rate 낮춤
     ReduceLR = ReduceLROnPlateau(monitor='val_mse', factor=0.2, mode='auto',
-                              patience=5, min_lr=1e-6, verbose=1)
-    EarlyStop = EarlyStopping(monitor='val_mse', mode='auto', patience=10, restore_best_weights=True)
+                              patience=10, min_lr=1e-6, verbose=1)
+    EarlyStop = EarlyStopping(monitor='val_mse', mode='auto', patience=50, restore_best_weights=True)
 
     EPOCHS = epoch
     history = model.fit(
